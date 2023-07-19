@@ -1,0 +1,22 @@
+.nav {
+  display: flex;
+  width: 100vw;
+  height:50px;
+  font-size: 16px;
+  color: white;
+  background-color: #008833;
+  border-bottom: 1px solid;
+  padding: 5px 20px;
+  user-select: none;
+}
+
+.navButton{
+  font-size: 30px;
+  margin:0 5px;
+  cursor: pointer;
+}
+
+.select-s {
+  @apply text-base mx-1 md:text-xl text-black rounded-md text-center border border-blue-500 cursor-pointer;
+}
+

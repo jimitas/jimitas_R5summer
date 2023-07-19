@@ -1,44 +1,21 @@
-import Head from "next/head";
-import styles from "@/styles/Home.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCat } from "@fortawesome/free-solid-svg-icons";
+import { MainTitle } from "@/components/MainTitle";
+import { Layout } from "src/components/Layout/Layout";
 
 export default function Home() {
   return (
     <>
-      <div>
-        {/* <Layout title=""> */}
-        <div className="text-4xl">
-          Jimitas
-          <span className="text-l">{"(ジミタス)"}</span>
-        </div>
+      <Layout title="">
 
-        <img className={styles.img} src="images/jimi.png" alt="" />
+      <MainTitle />
 
-        <div className={styles.subTitle}>
-          {/* <FontAwesomeIcon icon={faCat} />　 */}
-          <ruby>
-            地味
-            <rt>じみ</rt>
-          </ruby>
-          に
-          <ruby>
-            助<rt>たす</rt>
-          </ruby>
-          かる
-          <ruby>
-            学習
-            <rt>がくしゅう</rt>
-          </ruby>
-          コンテンツ　
-          {/* <FontAwesomeIcon icon={faCat} /> */}
-        </div>
+ 
 
-        <br />
-        {/* <Links /> */}
-        {/* </Layout> */}
-      </div>
-      <main className={styles.main}></main>
+      <br />
+      
+      {/* <Links /> */}
+      
+      </Layout>
+      
     </>
   );
 }
