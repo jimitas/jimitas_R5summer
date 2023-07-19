@@ -2,7 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+@layer components {
+  body {
+    font-family: "UD デジタル 教科書体 NK-R", "ヒラギノ角ゴ ProN W3", HiraKakuProN-W3, 游ゴシック, "Yu Gothic", メイリオ,
+      Meiryo, Verdana, Helvetica, Arial, sans-serif;
+    font-weight: 700;
+  }
+}
+
+/* :root {
   --max-width: 1100px;
   --border-radius: 12px;
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
@@ -108,4 +116,4 @@ a {
   html {
     color-scheme: dark;
   }
-}
+} */

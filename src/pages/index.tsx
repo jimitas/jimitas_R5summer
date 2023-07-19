@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <div>
         {/* <Layout title=""> */}
-        <div className="text-red-500">
+        <div className="text-4xl">
           Jimitas
           <span className="text-l">{"(ジミタス)"}</span>
         </div>
