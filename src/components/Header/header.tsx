@@ -6,14 +6,13 @@ import { useChangeColor } from "src/hooks/useChangeColor";
 // import { useChangeUser } from "src/hooks/useChangeUser";
 // import { useRouter } from "next/router";
 // import { PopupMenu } from "src/components/Popupmenu";
-// import { useDarkMode } from "../../hooks/useDarkMode";
 
 import styles from "src/components/Header/header.module.css";
 
 export function Header() {
-  // const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const { colorIndex, changeColor } = useChangeColor();
+
   // const { GAKUNEN, KUMI, BANGO, gakunen, kumi, bango, changeGakunen, changeKumi, changeBango } = useChangeUser();
   // const router = useRouter();
 
