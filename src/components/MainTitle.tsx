@@ -1,7 +1,8 @@
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCat } from "@fortawesome/free-solid-svg-icons";
 
-export function MainTitle() {
+const MainTitle: React.FC = () => {
   return (
     <div>
       <div className="mt-5 flex justify-center">
@@ -28,8 +29,9 @@ export function MainTitle() {
         Jimitas
         <span className="text-2xl">(ジミタス)</span>
       </div>
-
       {/* <img className="rounded" src="../../images/jimitas_logo.png" alt="" /> */}
     </div>
   );
-}
+};
+
+export default MainTitle;

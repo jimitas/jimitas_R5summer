@@ -1,6 +1,6 @@
 import React from "react";
-import { MainTitle } from "@/components/MainTitle";
-import Layout from "../components/Layout";
+import MainTitle from "@/components/MainTitle";
+import Layout from "@/components/Layout";
 
 const Home: React.FC = () => {
   return (
