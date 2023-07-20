@@ -9,19 +9,6 @@ import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 export const PopupMenu: FC = () => {
   const [isShown, setIsShown] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
-  const documentClickHandler = useRef<(e: MouseEvent) => void>();
-
-  useEffect(() => {
-    documentClickHandler.current = (e) => {
-      setIsShown(false);
-      removeDocumentClickHandler();
-    };
-
-  }, []);
-
-  const removeDocumentClickHandler = () => {
-    document.removeEventListener("click", documentClickHandler.current!);
-  };
 
   const handleToggleButtonClick = () => {
     if (isShown) return;
@@ -30,7 +17,6 @@ export const PopupMenu: FC = () => {
 
   const handleCloseButtonClick = () => {
     setIsShown(false);
-    removeDocumentClickHandler();
   };
 
   return (
