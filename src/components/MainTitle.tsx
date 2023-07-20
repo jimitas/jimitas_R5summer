@@ -4,7 +4,7 @@ import { faCat } from "@fortawesome/free-solid-svg-icons";
 export function MainTitle() {
   return (
     <div>
-      <div className="flex justify-center">
+      <div className="mt-5 flex justify-center">
         <FontAwesomeIcon className="w-10" icon={faCat} />　
         <div>
           <ruby>
@@ -28,6 +28,8 @@ export function MainTitle() {
         Jimitas
         <span className="text-2xl">(ジミタス)</span>
       </div>
+
+      {/* <img className="rounded" src="../../images/jimitas_logo.png" alt="" /> */}
     </div>
   );
 }

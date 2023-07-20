@@ -1,14 +1,14 @@
-import { ReactNode } from "react";
-import { Header } from "src/components/Header/header";
-import { Footer } from "src/components/Footer/footer";
+import React from "react";
+import { Header } from "../Header";
+import { Footer } from "../Footer";
 import styles from "src/components/Layout/layout.module.css";
 
 interface LayoutProps {
-  children: ReactNode;
   title: string;
+  children: React.ReactNode;
 }
 
-export function Layout({ children, title }: LayoutProps) {
+const Layout: React.FC<LayoutProps> = ({ children, title }) => {
   return (
     <div className="body">
       <Header />
@@ -19,4 +19,6 @@ export function Layout({ children, title }: LayoutProps) {
       <Footer />
     </div>
   );
-}
+};
+
+export default Layout;

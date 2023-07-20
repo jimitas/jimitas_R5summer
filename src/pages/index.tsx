@@ -1,21 +1,15 @@
+import React from "react";
 import { MainTitle } from "@/components/MainTitle";
-import { Layout } from "src/components/Layout/Layout";
+import Layout from "../components/Layout";
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
-    <>
-      <Layout title="">
-
+    <Layout title="">
       <MainTitle />
-
- 
-
       <br />
-      
       {/* <Links /> */}
-      
-      </Layout>
-      
-    </>
+    </Layout>
   );
-}
+};
+
+export default Home;
