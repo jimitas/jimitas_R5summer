@@ -4,16 +4,13 @@ import { useChangeColor } from "src/hooks/useChangeColor";
 import { faUndo, faHome, faPalette, faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
 import router from "next/router";
 import Link from "next/link";
-// import { useChangeUser } from "src/hooks/useChangeUser";
-// import { PopupMenu } from "src/components/Popupmenu";
+import { PopupMenu } from "src/components/Popupmenu";
 
 import styles from "src/components/Header/header.module.css";
 
 export function Header() {
   const { colorIndex, changeColor } = useChangeColor();
 
-  // const { GAKUNEN, KUMI, BANGO, gakunen, kumi, bango, changeGakunen, changeKumi, changeBango } = useChangeUser();
-  // const router = useRouter();
 
   const reload = () => {
     // se.set.play();
@@ -50,14 +47,10 @@ export function Header() {
         <FontAwesomeIcon icon={faUndo} />
       </div>
 
-      {/* 
-
-      <div className="text-3xl font-bold mx-5 cursor-pointer" style={{ color: "yellow" }}>
+      <div className="w-8 text-3xl font-bold mx-2 cursor-pointer" style={{ color: "yellow" }}>
         <PopupMenu />
       </div>
 
-      
-     */}
     </header>
   );
 }
