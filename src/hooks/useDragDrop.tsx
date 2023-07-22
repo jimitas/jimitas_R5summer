@@ -16,7 +16,7 @@ export const useDragDrop = () => {
     e.preventDefault();
     if (e.target instanceof HTMLTableCellElement && e.target.classList.contains("droppable-elem")) {
       dragged?.parentNode?.removeChild(dragged);
-      e.target.appendChild(dragged);
+      e.target.appendChild(dragged!);
       se.kako.play();
     }
   }, []);

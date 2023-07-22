@@ -10,7 +10,7 @@ export const useCheckAnswer = () => {
   };
 
   const sendWrong = async (el_text: RefObject<HTMLDivElement>) => {
-    se.alert.play();
+    se.alertSound.play();
     if (el_text.current) {
       const pre_text = el_text.current.innerHTML;
       el_text.current.innerHTML = `<span style="color:gray;">ちがうよ</span>`;

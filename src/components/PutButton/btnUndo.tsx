@@ -11,7 +11,7 @@ export function BtnUndo(props: BtnUndoProps) {
   const { handleEvent } = props;
 
   return (
-    <button className={styles.btnUndo} onClick={handleEvent}>
+    <button className={styles.btnUndo} onClick={handleEvent} >
       <FontAwesomeIcon icon={faUndo} />
     </button>
   );

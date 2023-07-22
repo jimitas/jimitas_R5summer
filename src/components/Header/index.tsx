@@ -1,4 +1,4 @@
-// import * as se from "src/components/se";
+import * as se from "src/components/se";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useChangeColor } from "src/hooks/useChangeColor";
 import { faUndo, faHome, faPalette, faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
@@ -12,15 +12,14 @@ export function Header() {
   const { colorIndex, changeColor } = useChangeColor();
 
   const reload = () => {
-    // se.set.play();
+    se.set.play();
     const result = window.confirm("もういちど　ページを　よみこみますか？");
     if (result === false) return;
     location.reload();
   };
 
   const back = () => {
-    // se.alert.play();
-    // se.set.play();
+    se.alertSound.play();
     const result = window.confirm("まえの　ページに　もどりますか？");
     if (result === false) return;
     router.back();
