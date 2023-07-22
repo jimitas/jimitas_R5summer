@@ -11,7 +11,6 @@ import styles from "src/components/Header/header.module.css";
 export function Header() {
   const { colorIndex, changeColor } = useChangeColor();
 
-
   const reload = () => {
     // se.set.play();
     const result = window.confirm("もういちど　ページを　よみこみますか？");
@@ -28,29 +27,24 @@ export function Header() {
   };
 
   return (
-    <header className={styles.nav}>
-      <div className="w-8 text-3xl font-bold mx-2 cursor-pointer">
-        <Link href="./">
-          <FontAwesomeIcon icon={faHome} style={{ color: "pink" }} />
-        </Link>
-      </div>
+    <header className={`${styles.nav} nav`}>
+      <Link className="w-8 text-3xl font-bold mx-2 cursor-pointer" href="./">
+        <FontAwesomeIcon icon={faHome} style={{ color: "pink" }} />
+      </Link>
 
       <div onClick={changeColor} className="w-8 mx-2 cursor-pointer" style={{ color: "orange" }}>
         <FontAwesomeIcon icon={faPalette} />
       </div>
 
-      <div onClick={back} className="w-8 text-3xl font-bold mx-2 cursor-pointer">
+      <div onClick={back} className="w-8 text-3xl font-bold mx-2 cursor-pointer" style={{ color: "blue" }}>
         <FontAwesomeIcon icon={faLongArrowAltLeft} />
       </div>
 
-      <div onClick={reload} className="w-8 text-3xl font-bold mx-2 cursor-pointer">
+      <div onClick={reload} className="w-8 text-3xl font-bold mx-2 cursor-pointer" style={{ color: "yellowgreen" }}>
         <FontAwesomeIcon icon={faUndo} />
       </div>
 
-      <div className="w-8 text-3xl font-bold mx-2 cursor-pointer" style={{ color: "yellow" }}>
-        <PopupMenu />
-      </div>
-
+      <PopupMenu />
     </header>
   );
 }

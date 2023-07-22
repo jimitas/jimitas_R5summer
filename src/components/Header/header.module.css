@@ -4,8 +4,8 @@
   height:50px;
   font-size: 16px;
   color: white;
-  background-color: #008833;
-  border-bottom: 1px solid;
+  /* background-color: #008833; */
+
   padding: 5px 20px;
   user-select: none;
 }

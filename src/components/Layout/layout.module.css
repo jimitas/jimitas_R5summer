@@ -4,6 +4,7 @@
 
 .main {
   height: calc(100vh - 80px);
+  border-top: 1px solid;
 }
 
 .select-s {

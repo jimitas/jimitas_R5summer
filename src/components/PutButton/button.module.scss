@@ -1,0 +1,69 @@
+.btn,
+.btnNum,
+.btnNext,
+.btnQuest,
+.btnUndo {
+  min-width: max(4vw, 40px);
+  height: max(3vw, 30px);
+  font-size: max(1.6vw, 16px);
+  text-align: center;
+  margin: 10px;
+  padding: 0 5px;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 10%;
+  -webkit-box-shadow: 2px 2px 2px 0 rgba(128, 128, 128, 0.8);
+  box-shadow: 2px 2px 2px 0 rgba(128, 128, 128, 0.8);
+  :active,
+  :active {
+    /*ボタンを押したとき*/
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
+    /*下に動く*/
+    border-bottom: none;
+    /*線を消す*/
+  }
+}
+
+.btnNum {
+  margin: 2px;
+}
+
+.btn,
+.btnNum {
+  color: blue;
+  border: blue 2px solid;
+  :hover {
+    color: white;
+    background-color: blue;
+  }
+}
+
+.btnNext {
+  color: orangered;
+  border: orangered 2px solid;
+  :hover {
+    color: white;
+    background-color: orangered;
+  }
+}
+
+.btnQuest {
+  width: auto;
+  color: red;
+  border: red 2px solid;
+  :hover {
+    color: white;
+    background-color: red;
+  }
+}
+
+.btnUndo {
+  color: #ff4b00;
+  border: orangered 2px solid;
+}
+
+.btnSpace {
+  width: max(4vw, 40px);
+  height: max(3vw, 30px);
+}
