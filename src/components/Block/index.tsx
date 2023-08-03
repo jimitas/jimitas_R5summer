@@ -28,30 +28,29 @@ export function Block(props: BlockProps) {
 
   const { dragStart, dragOver, dropEnd, touchStart, touchMove, touchEnd } = useDragDrop();
 
-  const handleTouchStart = (e: TouchEvent) => {
-    touchStart(e as unknown as React.TouchEvent<HTMLDivElement>);
-  };
-
-  const handleTouchMove = (e: TouchEvent) => {
-    touchMove(e as unknown as React.TouchEvent<HTMLDivElement>);
-  };
-
-  const handleTouchEnd = (e: TouchEvent) => {
-    touchEnd(e as unknown as React.TouchEvent<HTMLDivElement>);
-  };
-
-  const handleDragStart = (e: DragEvent) => {
-    dragStart(e as unknown as React.DragEvent<HTMLDivElement>);
-  };
-  const handleDragOver = (e: DragEvent) => {
-    dragOver(e as unknown as React.DragEvent<HTMLDivElement>);
-  };
-  const handleDropEnd = (e: DragEvent) => {
-    dropEnd(e as unknown as React.DragEvent<HTMLDivElement>);
-  };
-
-
   useEffect(() => {
+    const handleDragStart = (e: DragEvent) => {
+      dragStart(e as unknown as React.DragEvent<HTMLDivElement>);
+    };
+    const handleDragOver = (e: DragEvent) => {
+      dragOver(e as unknown as React.DragEvent<HTMLDivElement>);
+    };
+    const handleDropEnd = (e: DragEvent) => {
+      dropEnd(e as unknown as React.DragEvent<HTMLDivElement>);
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStart(e as unknown as React.TouchEvent<HTMLDivElement>);
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      touchMove(e as unknown as React.TouchEvent<HTMLDivElement>);
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      touchEnd(e as unknown as React.TouchEvent<HTMLDivElement>);
+    };
+
     const ele = el_table.current;
     while (ele?.firstChild) {
       ele.removeChild(ele.firstChild);
@@ -75,9 +74,11 @@ export function Block(props: BlockProps) {
           ) {
             let colorIndex = i;
             let touchStartFlag = false;
+
             const div = document.createElement("div");
             div.className = "draggable-elem";
             div.setAttribute("draggable", "true");
+            td.appendChild(div);
             div.style.backgroundColor = divColor[colorIndex];
 
             const colorChange = () => {
@@ -86,7 +87,7 @@ export function Block(props: BlockProps) {
               div.style.backgroundColor = divColor[colorIndex % 2];
             };
 
-            //150ミリ秒以内にタッチして指を離すとき，クリックイベントと同じ挙動とみなす。
+            // 150ミリ秒以内にタッチして指を離すとき，クリックイベントと同じ挙動とみなす。
             const touchStartEvent = () => {
               touchStartFlag === false ? (touchStartFlag = true) : (touchStartFlag = false);
               setTimeout(() => {
@@ -100,15 +101,13 @@ export function Block(props: BlockProps) {
 
             div.addEventListener("click", colorChange, false);
             div.addEventListener("touchstart", touchStartEvent, false);
-            div.addEventListener("touchstart", handleTouchStart, false);
             div.addEventListener("touchend", touchEndEvent, false);
-            div.addEventListener("touchend", handleTouchEnd, false);
-            div.addEventListener("touchmove", handleTouchMove, false);
             div.addEventListener("dragstart", handleDragStart, false);
             div.addEventListener("dragover", handleDragOver, false);
             div.addEventListener("drop", handleDropEnd, false);
-
-            td.appendChild(div);
+            div.addEventListener("touchstart", handleTouchStart, false);
+            div.addEventListener("touchmove", handleTouchMove, false);
+            div.addEventListener("touchend", handleTouchEnd, false);
           }
         }
       }
@@ -142,3 +141,8 @@ export function Block(props: BlockProps) {
 // あまり効率的ともいえない。
 
 // まずは、カラーチェンジの要素を取り除き、ドラッグドロップができるかどうかを試したい。
+
+// ブロックを画像で表示し、回転のアニメーションをつけたい
+// タッチイベントについては直接divに配置できるようになった。
+// ドラッグイベントについては、子要素に直接イベントを付与できないが、とりあえず放置
+// 現在のスタイリングでは、例えばテーブルごとドラッグされるということはないが、ドラッグできる余白があると、勝手に動いてしまう恐れがある。
