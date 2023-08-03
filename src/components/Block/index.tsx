@@ -28,6 +28,29 @@ export function Block(props: BlockProps) {
 
   const { dragStart, dragOver, dropEnd, touchStart, touchMove, touchEnd } = useDragDrop();
 
+  const handleTouchStart = (e: TouchEvent) => {
+    touchStart(e as unknown as React.TouchEvent<HTMLDivElement>);
+  };
+
+  const handleTouchMove = (e: TouchEvent) => {
+    touchMove(e as unknown as React.TouchEvent<HTMLDivElement>);
+  };
+
+  const handleTouchEnd = (e: TouchEvent) => {
+    touchEnd(e as unknown as React.TouchEvent<HTMLDivElement>);
+  };
+
+  const handleDragStart = (e: DragEvent) => {
+    dragStart(e as unknown as React.DragEvent<HTMLDivElement>);
+  };
+  const handleDragOver = (e: DragEvent) => {
+    dragOver(e as unknown as React.DragEvent<HTMLDivElement>);
+  };
+  const handleDropEnd = (e: DragEvent) => {
+    dropEnd(e as unknown as React.DragEvent<HTMLDivElement>);
+  };
+
+
   useEffect(() => {
     const ele = el_table.current;
     while (ele?.firstChild) {
@@ -77,7 +100,14 @@ export function Block(props: BlockProps) {
 
             div.addEventListener("click", colorChange, false);
             div.addEventListener("touchstart", touchStartEvent, false);
+            div.addEventListener("touchstart", handleTouchStart, false);
             div.addEventListener("touchend", touchEndEvent, false);
+            div.addEventListener("touchend", handleTouchEnd, false);
+            div.addEventListener("touchmove", handleTouchMove, false);
+            div.addEventListener("dragstart", handleDragStart, false);
+            div.addEventListener("dragover", handleDragOver, false);
+            div.addEventListener("drop", handleDropEnd, false);
+
             td.appendChild(div);
           }
         }
@@ -87,13 +117,13 @@ export function Block(props: BlockProps) {
 
   return (
     <div className="flex justify-center flex-wrap items-end">
-      <BtnSpace ></BtnSpace>
+      <BtnSpace></BtnSpace>
       <div
         ref={el_table}
         className={styles.table}
-        onTouchStart={touchStart}
-        onTouchMove={touchMove}
-        onTouchEnd={touchEnd}
+        // onTouchStart={touchStart}
+        // onTouchMove={touchMove}
+        // onTouchEnd={touchEnd}
         onDragStart={dragStart}
         onDragOver={dragOver}
         onDrop={dropEnd}
@@ -102,3 +132,13 @@ export function Block(props: BlockProps) {
     </div>
   );
 }
+
+// 現在el_tableにイベントを設置し、その子要素に伝搬する形で実現をしているが、本来の形ではない。
+// 本来は、divの子要素に直接イベントを設置するべきだが、それでもまだうまく配置できていない。
+// ブロック自体はマップ関数で配置すれば良いものだが、そこもうまく言っていない。
+// もしマップ関数を利用するならば、それぞれのどろっぱぶるに配列を用意し、そこに格納したり、
+// 配列の要素削除、追加を設定することで、ドラッグアンドドロップを実現すると考えられる。
+// ただ、数図ブロックのように、それぞれのTDに直接ドロップする形をとるならば、配列の形は
+// あまり効率的ともいえない。
+
+// まずは、カラーチェンジの要素を取り除き、ドラッグドロップができるかどうかを試したい。

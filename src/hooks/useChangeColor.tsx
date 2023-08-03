@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import * as se from "src/components/se";
 
 interface ChangeColorResult {
   colorIndex: number;
@@ -13,7 +14,7 @@ export const useChangeColor = (): ChangeColorResult => {
 
   const changeColor = useCallback(() => {
     if (isButtonDisabled) return;
-    
+    se.set.play();
     setColorIndex((prevColorIndex) => prevColorIndex + 1);
     setIsButtonDisabled(true);
   }, [isButtonDisabled]);
@@ -24,7 +25,7 @@ export const useChangeColor = (): ChangeColorResult => {
 
     const timer = setTimeout(() => {
       setIsButtonDisabled(false);
-    }, 1000); // ボタンの無効化時間（ミリ秒）
+    }, 500); // ボタンの無効化時間（ミリ秒）
 
     return () => clearTimeout(timer);
   }, [isButtonDisabled]);
@@ -32,7 +33,7 @@ export const useChangeColor = (): ChangeColorResult => {
   useEffect(() => {
     document.body.style.color = styleColor[colorIndex % styleColor.length];
     document.body.style.backgroundColor = styleBColor[colorIndex % styleBColor.length];
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colorIndex]);
 
   return { colorIndex, changeColor };

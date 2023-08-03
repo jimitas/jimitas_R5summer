@@ -2,8 +2,11 @@ import { useCallback } from "react";
 import * as se from "src/components/se";
 
 export const useDragDrop = () => {
+  let dragged: HTMLElement | null;
+
   const dragStart = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     if (e.target instanceof HTMLElement && e.target.draggable === true) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       dragged = e.target;
     }
   }, []);
@@ -14,14 +17,13 @@ export const useDragDrop = () => {
 
   const dropEnd = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
+    se.kako.play();
     if (e.target instanceof HTMLTableCellElement && e.target.classList.contains("droppable-elem")) {
       dragged?.parentNode?.removeChild(dragged);
       e.target.appendChild(dragged!);
       se.kako.play();
     }
   }, []);
-
-  let dragged: HTMLElement | null;
 
   const touchStart = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
     e.preventDefault();

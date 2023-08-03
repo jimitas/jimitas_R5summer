@@ -19,7 +19,7 @@ export function Header() {
   };
 
   const back = () => {
-    se.alertSound.play();
+    se.set.play();
     const result = window.confirm("まえの　ページに　もどりますか？");
     if (result === false) return;
     router.back();
