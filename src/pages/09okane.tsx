@@ -1,4 +1,4 @@
-import { Layout } from "src/components/Layout/Layout";
+import Layout from "@/components/Layout";
 import { Okane } from "src/components/Okane";
 
 export default function Home() {

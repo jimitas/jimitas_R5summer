@@ -1,4 +1,4 @@
-import { Layout } from "src/components/Layout/Layout";
+import Layout from "@/components/Layout";
 import { Hiragana1 } from "src/components/Hiragana1";
 
 export default function Home() {

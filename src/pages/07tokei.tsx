@@ -1,4 +1,4 @@
-import { Layout } from "src/components/Layout/Layout";
+import Layout from "@/components/Layout";
 import { Tokei } from "src/components/Tokei";
 
 export default function Home() {

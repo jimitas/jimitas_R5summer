@@ -1,14 +1,14 @@
+import Layout from "@/components/Layout";
 import { useCallback, useEffect, useState, useRef } from "react";
-import { Layout } from "src/components/Layout/Layout";
 import { Kenban } from "src/components/Kenban/Kenban";
 
 const ITEM = ["けんばんハーモニカ", "リコーダー", "もっきん", "てっきん"];
 
 export default function Home() {
-  const el_select = useRef(null);
-  const [gakkiName, setGakkiName] = useState("けんばんハーモニカ");
+  const el_select = useRef<HTMLSelectElement>(null);
+  const [gakkiName, setGakkiName] = useState<string>("けんばんハーモニカ");
   const changeGakki = () => {
-    setGakkiName((gakkiName) => el_select.current.value);
+    setGakkiName((gakkiName) => el_select.current!.value);
   };
 
   return (

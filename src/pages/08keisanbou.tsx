@@ -1,4 +1,4 @@
-import { Layout } from "src/components/Layout/Layout";
+import Layout from "@/components/Layout";
 import { Keisanbou } from "src/components/Keisanbou";
 
 export default function Home() {
