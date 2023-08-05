@@ -71,7 +71,8 @@ export default function Nanbanme() {
     setCount_2((count_2) => count_2 + 1);
   };
 
-  const checkAnswer_1 = (e: any) => {
+  // とりあえずイベントをanyで受け取り、ターゲットIDはストリングで型をつける。
+  const checkAnswer_1 = (e:any) => {
     if (!flag) return;
     flag = false;
     const myAnswer: string = e.target.id;

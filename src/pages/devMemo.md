@@ -14,3 +14,5 @@ button hoverやactiveが効いていない。
 3.お金や数え棒についても同様にする。
 
 ボタンについてはFontAwesomeIconの、widthを直接指定して制御した。
+
+05足し算までいったが、useStateで式の値を保持するようにしないといけない。
