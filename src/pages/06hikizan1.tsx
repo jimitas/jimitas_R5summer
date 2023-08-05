@@ -29,7 +29,7 @@ export default function Hikizan1() {
   const [count, setCount] = useState<number>(0);
   const [selectIndex, setSelectIndex] = useState<number>(0);
 
-  const changeSelect = (e:any) => {
+  const changeSelect = (e: any) => {
     // インデックスを取得
     const selectedIndex: number = e.target.selectedIndex;
     setSelectIndex(selectedIndex);
@@ -116,16 +116,22 @@ export default function Hikizan1() {
         <PutSelect ITEM={ITEM} handleEvent={changeSelect}></PutSelect>
 
         <button className={styles.btn} onClick={giveQuestion}>
-          <FontAwesomeIcon icon={faQuestion} />
-          もんだい
+          <div style={{ display: "flex" }}>
+            <FontAwesomeIcon icon={faQuestion} style={{ width: "20px" }} />
+            もんだい
+          </div>
         </button>
         <button className={styles.btn} onClick={setQuest}>
-          <FontAwesomeIcon icon={faUserEdit} />
-          にゅうりょく
+          <div style={{ display: "flex" }}>
+            <FontAwesomeIcon icon={faUserEdit} style={{ width: "20px" }} />
+            にゅうりょく
+          </div>
         </button>
         <button className={styles.btn} onClick={showAnswer}>
-          <FontAwesomeIcon icon={faEye} />
-          こたえ
+          <div style={{ display: "flex" }}>
+            <FontAwesomeIcon icon={faEye} style={{ width: "20px" }} />
+            こたえ
+          </div>
         </button>
       </div>
 
