@@ -14,7 +14,6 @@ import Layout from "@/components/Layout";
 const NUM_1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const NUM_2 = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 const ITEM = ["10までの　かず", "10+□,□+10", "1□+□,□+1□", "20までの　かず"];
-const kigo: string = "+";
 var flag = false;
 var left_value: number;
 var right_value: number;
@@ -28,7 +27,6 @@ export default function Tashizan1() {
   const el_answer = useRef<HTMLInputElement>(null);
   const [count, setCount] = useState<number>(0);
   const [selectIndex, setSelectIndex] = useState<number>(0);
-
 
   const changeSelect = (e: any) => {
     // インデックスを取得
@@ -151,40 +149,11 @@ export default function Tashizan1() {
       <PutText el_text={el_text}></PutText>
 
       <PutShiki
-        // handleEvent={changeNumber}
         kigo={"+"}
         el_right_input={el_right_input}
         el_left_input={el_left_input}
         el_answer={el_answer}
       ></PutShiki>
-{/* 
-      <div className={styles.place}>
-        <input
-          ref={el_left_input}
-          className={styles.input}
-          type="number"
-          name="number"
-          max="20"
-          min="0"
-          step="1"
-        />
-
-        <span className={styles.kigo}>{kigo}</span>
-
-        <input
-          ref={el_right_input}
-          className={styles.input}
-          type="number"
-          name="number"
-          max="20"
-          min="0"
-          step="1"
-        />
-
-        <span className={styles.kigo}>＝</span>
-
-        <input ref={el_answer} className={styles.input} type="number" name="number" max="20" min="0" step="1" />
-      </div> */}
 
       <div className={styles.place}>
         <Block a={left_value} b={right_value} />
