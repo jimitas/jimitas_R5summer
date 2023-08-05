@@ -94,7 +94,7 @@
     border-bottom: none;
     /*線を消す*/
   }
-  /* footer{
+  footer{
     @apply text-xs w-full md:h-8 flex justify-center items-center border-t text-white bg-green-800
-  } */
+  }
 }
