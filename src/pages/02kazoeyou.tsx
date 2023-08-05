@@ -18,7 +18,7 @@ export default function Home() {
   const { clearImage } = useClearImage();
 
   const el_text = useRef<HTMLDivElement>(null);
-  const el_img = useRef<HTMLDivElement>(null);
+  const el_img = useRef<HTMLImageElement>(null);
   const [flag, setFlag] = useState(true);
   const [count, setCount] = useState(0);
   const [maxValue, setMaxValue] = useState(5);

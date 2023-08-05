@@ -14,7 +14,7 @@ export function BtnShuffle(props: BtnShuffleProps) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <button onClick={handleEvent} className={styles.btnQuest}>
-        <FontAwesomeIcon icon={faRandom} />
+        <FontAwesomeIcon icon={faRandom} style={{width:"12px"}}/>
         {btnText}
       </button>
     </div>

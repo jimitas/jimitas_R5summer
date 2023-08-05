@@ -12,7 +12,7 @@ export function BtnUndo(props: BtnUndoProps) {
 
   return (
     <button className={styles.btnUndo} onClick={handleEvent} >
-      <FontAwesomeIcon icon={faUndo} />
+      <FontAwesomeIcon icon={faUndo} style={{width:"24px"}}/>
     </button>
   );
 }

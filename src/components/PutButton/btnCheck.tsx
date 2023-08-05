@@ -14,7 +14,7 @@ export function BtnCheck(props: BtnCheckProps) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <button onClick={handleEvent} className={styles.btnQuest}>
-        <FontAwesomeIcon icon={faCheck} />
+        <FontAwesomeIcon icon={faCheck} style={{width:"12px"}}/>
         {btnText}
       </button>
     </div>
