@@ -76,9 +76,8 @@ export default function Nanbanme() {
   const checkAnswer_1 = (e: any) => {
     if (!flag) return;
     flag = false;
-    const myAnswer:string = e.target.id;
+    const myAnswer: string = e.target.id;
     answer == myAnswer ? sendRight(el_text) : sendWrong(el_text);
-    console.log(myAnswer, answer);
     if (answer != myAnswer)
       setTimeout(() => {
         flag = true;
@@ -88,7 +87,7 @@ export default function Nanbanme() {
   const checkAnswer_2 = () => {
     if (!flag) return;
     flag = false;
-    const myAnswer = selectIndex_1 == "ひだり" ? ANIMALS[order[selectIndex_2 - 1]] : selectIndex_1 == "みぎ";
+    const myAnswer = selectIndex_1 == "ひだり" ? ANIMALS[order[selectIndex_2 - 1]] : ANIMALS[order[10 - selectIndex_2]];
     answer == myAnswer ? sendRight(el_text) : sendWrong(el_text);
     if (answer != myAnswer)
       setTimeout(() => {
