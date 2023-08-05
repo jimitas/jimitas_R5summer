@@ -9,10 +9,15 @@ interface BtnNumProps {
 export function BtnNum(props: BtnNumProps) {
   const { ITEM, handleEvent } = props;
 
+  const handleClick = (num: number) => {
+    handleEvent(num);
+  };
+
+
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       {ITEM.map((num) => (
-        <button className={styles.btnNum} onClick={() => handleEvent(num)} key={num} value={num}>
+        <button className={styles.btnNum} onClick={() => handleClick(num)} key={num} value={num}>
           {num}
         </button>
       ))}

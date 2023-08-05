@@ -1,35 +1,65 @@
-.main {
+@charset "UTF-8";
+/* index.jsx */
+.mainTitle {
+  font-size: min(5vw, 50px);
+}
+
+.subTitle {
+  font-size: min(3vw, 30px);
+}
+
+.img {
+  width: min(5vw, 50px);
+  height: min(5vw, 50px);
+  margin: 0 auto;
+}
+
+.btn,
+.btnNext {
+  height: max(3vw, 30px);
+  font-size: max(2vw, 20px);
+  text-align: center;
+  margin: 5px;
+  padding: 0 5px;
+  background-color: white;
+  cursor: pointer;
+  border-radius: min(10%,10px);
+  -webkit-box-shadow: 2px 2px 2px 0 rgba(128, 128, 128, 0.8);
+  box-shadow: 2px 2px 2px 0 rgba(128, 128, 128, 0.8);
+}
+
+.btnNext {
+  color: orangered;
+  border: orangered 2px solid;
+}
+
+.btn {
+  color: blue;
+  border: blue 2px solid;
+}
+
+.btn:hover {
+  color: white;
+  background-color: blue;
+}
+
+.btnNext:hover {
+  color: white;
+  background-color: orangered;
+}
+
+.btn:active,
+.btnNext:active {
+  /*ボタンを押したとき*/
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);
+  /*下に動く*/
+  border-bottom: none;
+  /*線を消す*/
+}
+
+.place {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
-}
-
-/* DarkModeToggleButton.module.css */
-
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-}
-
-@media (prefers-reduced-motion) {
-}
-
-/* Mobile */
-@media (max-width: 700px) {
-}
-
-/* Tablet and Smaller Desktop */
-@media (min-width: 701px) and (max-width: 1120px) {
-}
-
-@media (prefers-color-scheme: dark) {
-  body{
-    background-color: #000;
-    color: #fff;
-  }
-}
-
-@keyframes rotate {
 }

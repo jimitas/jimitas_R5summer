@@ -1,0 +1,50 @@
+.table td {
+  border: solid 1px;
+  width: 26vw;
+  height: 29vw;
+  display: inline-flex;
+  align-content : flex-start;
+  flex-wrap: wrap;
+}
+
+.table img {
+  cursor: pointer;
+}
+
+.setPlace{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 26vw;
+}
+
+.setPlace img{
+  cursor: pointer;
+}
+
+.btnUndo,.btnCalc {
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0.5rem;
+  border: 2px solid;
+  border-radius: 20%;
+  cursor: pointer;
+  color: #ff4b00;
+  background-color: white;
+  box-shadow: 2px 2px 2px 0 rgba(128, 128, 128, 0.8);
+}
+
+.btnUndo:hover {
+  color: white;
+  background-color: #ff4b00;
+}
+
+.btnUndo:active {
+  /*ボタンを押したとき*/
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px); /*下に動く*/
+  border-bottom: none; /*線を消す*/
+}
+

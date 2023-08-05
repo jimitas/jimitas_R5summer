@@ -1,0 +1,82 @@
+.table {
+  width: 44rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.table td {
+  width: 4rem;
+  height: 4rem;
+  max-height: 4rem;
+  border: 1px solid ;
+  border-collapse: collapse;
+}
+
+.table div {
+  width: 3.2rem;
+  height: 3.2rem;
+  margin: auto;
+  box-shadow: 2px 2px 2px 0 rgba(128, 128, 128, 0.8);
+  border: 1px solid;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.container {
+  padding: 0 2rem;
+}
+
+.btnUndo {
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0.5rem;
+  border: 2px solid;
+  border-radius: 20%;
+  cursor: pointer;
+  color: #ff4b00;
+  background-color: white;
+  box-shadow: 2px 2px 2px 0 rgba(128, 128, 128, 0.8);
+}
+
+.btnUndo:hover {
+  color: white;
+  background-color: #ff4b00;
+}
+
+.btnUndo:active {
+  /*ボタンを押したとき*/
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px); /*下に動く*/
+  border-bottom: none; /*線を消す*/
+}
+
+
+
+
+@media screen and (max-width:767px) {
+	/* 767px以下に適用されるCSS（スマホ用） */
+  .table {
+    width: 18rem;
+  }
+  
+  .table td {
+    width: 1.6rem;
+    height: 1.6rem;
+    max-height: 1.6rem;
+  }
+  
+  .table div {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .btnUndo {
+    width: 1rem;
+    height: 1rem;
+    font-size: 0.8rem;
+    margin: 0.1rem;
+  }
+}

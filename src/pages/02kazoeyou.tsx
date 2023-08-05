@@ -1,5 +1,4 @@
 import * as se from "src/components/se";
-import { Layout } from "src/components/Layout/Layout";
 import { useEffect, useState, useRef } from "react";
 import { PutSelect } from "src/components/PutSelect";
 import { BtnNum } from "src/components/PutButton/btnNum";
@@ -8,17 +7,18 @@ import { useCheckAnswer } from "src/hooks/useCheckAnswer";
 import { useClearImage } from "src/hooks/useClearImage";
 import { PutImage } from "src/components/PutImage";
 import { PutText } from "src/components/PutText";
+import Layout from "@/components/Layout";
 
-const ITEM = [5, 6, 7, 8, 9, 10];
-const NUM = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const ANIMALS = ["apple", "banana", "cat", "monkey", "frog", "dog"];
+const ITEM: number[] = [5, 6, 7, 8, 9, 10];
+const NUM: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const ANIMALS: string[] = ["apple", "banana", "cat", "monkey", "frog", "dog"];
 
 export default function Home() {
   const { sendRight, sendWrong } = useCheckAnswer();
   const { clearImage } = useClearImage();
 
-  const el_text = useRef(null);
-  const el_img = useRef(null);
+  const el_text = useRef<HTMLDivElement>(null);
+  const el_img = useRef<HTMLDivElement>(null);
   const [flag, setFlag] = useState(true);
   const [count, setCount] = useState(0);
   const [maxValue, setMaxValue] = useState(5);
@@ -28,7 +28,7 @@ export default function Home() {
     setFlag(true);
     clearImage(el_img); // 画像のクリア
     putImage(answer, maxValue); // 画像の配置
-    el_text.current.innerHTML = `<span style="color:none;">いくつかな?</span>`;
+    el_text.current!.innerHTML = `<span style="color:none;">いくつかな?</span>`;
   }, [count]);
 
   const giveQuestion = () => {
@@ -38,16 +38,16 @@ export default function Home() {
   };
 
   // 〇〇までの数のセレクトを変える。
-  const changeSelect = (e) => {
-    setMaxValue(e.target.value);
+  const changeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setMaxValue(parseInt(e.target.value));
     giveQuestion();
   };
 
   // 解答チェック
-  const checkAnswer = (e) => {
+  const checkAnswer = (num: number) => {
     if (!flag) return;
     setFlag(false);
-    const myAnswer = e.target.value;
+    const myAnswer = num;
     if (answer == myAnswer) sendRight(el_text);
     else {
       sendWrong(el_text);
@@ -58,14 +58,15 @@ export default function Home() {
   };
 
   // 画像の配置
-  const putImage = (answer, maxValue) => {
+  const putImage = (answer: number, maxValue: number) => {
     const imgSrc = `images/${ANIMALS[maxValue - 5]}.png`;
+
     for (let i = 0; i < answer; i++) {
       const div = document.createElement("div");
       const img = document.createElement("img");
       img.setAttribute("src", imgSrc);
       div.appendChild(img);
-      el_img.current.appendChild(div);
+      el_img.current!.appendChild(div);
     }
   };
 
