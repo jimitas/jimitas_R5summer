@@ -1,6 +1,5 @@
 import * as se from "src/components/se";
 import styles from "../styles/Home.module.css";
-import { Layout } from "src/components/Layout/Layout";
 import { Block } from "src/components/Block";
 import { Hide } from "src/components/Hide";
 import { useState, useRef } from "react";
@@ -11,29 +10,32 @@ import { PutShiki } from "src/components/PutShiki";
 import { PutText } from "src/components/PutText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faQuestion, faUserEdit, faCheck } from "@fortawesome/free-solid-svg-icons";
+import Layout from "@/components/Layout";
 
 const NUM_1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const NUM_2 = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 const ITEM = ["～10", "10-□", "1□-□", "1□-□=□"];
-var answer = null;
 var flag = false;
-var left_value;
-var right_value;
+var left_value: number;
+var right_value: number;
+var answer: number;
 
 export default function Hikizan1() {
   const { sendRight, sendWrong } = useCheckAnswer();
-  const el_text = useRef(null);
-  const el_left_input = useRef(null);
-  const el_right_input = useRef(null);
-  const el_answer = useRef(null);
+  const el_text = useRef<HTMLDivElement>(null);
+  const el_left_input = useRef<HTMLInputElement>(null);
+  const el_right_input = useRef<HTMLInputElement>(null);
+  const el_answer = useRef<HTMLInputElement>(null);
+  const [count, setCount] = useState<number>(0);
+  const [selectIndex, setSelectIndex] = useState<number>(0);
 
-  const [count, setCount] = useState(0);
-  const [selectIndex, setSelectIndex] = useState(0);
-
-  const changeSelect = (e) => {
+  const changeSelect = (e:any) => {
+    // インデックスを取得
+    const selectedIndex: number = e.target.selectedIndex;
+    setSelectIndex(selectedIndex);
     flag = false;
     setSelectIndex(e.target.selectedIndex);
-    el_text.current.innerHTML = "";
+    el_text.current!!.innerHTML = "";
     se.reset.play();
   };
 
@@ -41,8 +43,8 @@ export default function Hikizan1() {
   const giveQuestion = () => {
     flag = true;
     se.pi.play();
-    el_text.current.innerHTML = "";
-    el_answer.current.value = null;
+    el_text.current!.innerHTML = "";
+    el_answer.current!.value = "";
 
     switch (selectIndex) {
       case 0:
@@ -65,26 +67,26 @@ export default function Hikizan1() {
     }
 
     answer = left_value - right_value;
-    el_left_input.current.value = left_value;
-    el_right_input.current.value = right_value;
+    el_left_input.current!.value = left_value.toString();
+    el_right_input.current!.value = right_value.toString();
     setCount((count) => count + 1);
   };
 
   // 問題を入力する。
   const setQuest = () => {
-    left_value = Number(el_left_input.current.value);
-    right_value = Number(el_right_input.current.value);
+    left_value = Number(el_left_input.current!.value);
+    right_value = Number(el_right_input.current!.value);
     if (left_value > 20 || right_value > left_value || left_value < 0 || right_value < 0) {
-      se.alert.play();
+      se.alertSound.play();
       alert("すうじは　0～20。ひかれるかず > ひくかず");
-      el_left_input.current.value = null;
-      el_right_input.current.value = null;
+      el_left_input.current!.value = "";
+      el_right_input.current!.value = "";
       return;
     } else {
       flag = true;
       se.pi.play();
-      el_text.current.innerHTML = "";
-      el_answer.current.value = null;
+      el_text.current!.innerHTML = "";
+      el_answer.current!.value = "";
       answer = Math.floor(left_value - right_value);
     }
     setCount((count) => count + 1);
@@ -93,14 +95,13 @@ export default function Hikizan1() {
   const showAnswer = () => {
     if (!flag) return;
     se.seikai1.play();
-    el_answer.current.value = el_answer.current.value == answer ? null : answer;
+    el_answer.current!.value = parseInt(el_answer.current!.value) == answer ? "" : answer.toString();
   };
 
-  const checkAnswer = (e) => {
+  const checkAnswer = (myAnswer: number) => {
     // 回答チェック
     if (!flag) return;
     flag = false;
-    const myAnswer = e.target.value;
     answer == myAnswer ? sendRight(el_text) : sendWrong(el_text);
     //間違えたら、1秒後に再入力可能に。
     if (answer != myAnswer)
