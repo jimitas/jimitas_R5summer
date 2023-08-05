@@ -1,5 +1,4 @@
 import * as se from "src/components/se";
-import { Layout } from "src/components/Layout/Layout";
 import { Block } from "src/components/Block";
 import { useState, useRef } from "react";
 import { PutSelect } from "src/components/PutSelect";
@@ -7,24 +6,25 @@ import { BtnNum } from "src/components/PutButton/btnNum";
 import { BtnQuestion } from "src/components/PutButton/btnQuestion";
 import { useCheckAnswer } from "src/hooks/useCheckAnswer";
 import { PutText } from "src/components/PutText";
-import styles from "../styles/Home.module.css";
+import Layout from "@/components/Layout";
 
 const NUM = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const ITEM = [5, 6, 7, 8, 9, 10];
-var flag = false;
-var answer = null;
-var left_value;
-var right_value;
+var flag: boolean = false;
+var answer: number;
+var left_value: string | number;
+var right_value: string | number;
 
 export default function Ikutu() {
   const { sendRight, sendWrong } = useCheckAnswer();
-  const el_text = useRef(null);
-  const [selectValue, setSelectValue] = useState(5);
+  const el_text = useRef<HTMLDivElement>(null);
+  const [selectValue, setSelectValue] = useState<number>(5);
 
-  const changeSelect = (e) => {
-    setSelectValue(e.target.value);
+  const changeSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectValue = parseInt(e.target.value, 10); // セレクト要素のvalueをnumberに変換
+    setSelectValue(selectValue);
     se.reset.play();
-    el_text.current.innerHTML = "";
+    el_text.current!.innerHTML = "";
     flag = false;
   };
 
@@ -42,14 +42,12 @@ export default function Ikutu() {
       left_value = n - answer;
       right_value = "□";
     }
-    el_text.current.innerHTML = `${n} は　${left_value} と ${right_value}`;
+    el_text.current!.innerHTML = `${n} は　${left_value} と ${right_value}`;
   };
 
-  const checkAnswer = (e) => {
-    // 回答チェック
+  const checkAnswer = (myAnswer:number) => {
     if (!flag) return;
     flag = false;
-    const myAnswer = e.target.value;
     answer == myAnswer ? sendRight(el_text) : sendWrong(el_text);
     //間違えたら、1秒後に再入力可能に。
     if (answer != myAnswer)

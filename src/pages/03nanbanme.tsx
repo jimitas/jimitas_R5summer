@@ -8,8 +8,6 @@ import { PutSelect } from "src/components/PutSelect";
 import { PutImage } from "src/components/PutImage";
 import { PutText } from "src/components/PutText";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faQuestion, faRandom } from "@fortawesome/free-solid-svg-icons";
 import { BtnShuffle } from "src/components/PutButton/btnShuffle";
 import { BtnCheck } from "src/components/PutButton/btnCheck";
 import Layout from "@/components/Layout";
