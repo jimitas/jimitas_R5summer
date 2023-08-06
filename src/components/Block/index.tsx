@@ -2,12 +2,9 @@ import Image from "next/image"; // Imageコンポーネントをインポート
 import React, { useEffect, useState, useRef } from "react";
 import * as se from "src/components/se";
 import styles from "src/components/Block/Block.module.css";
-import blockPink from "public/images/block-pink.png";
-import blockBlue from "public/images/block-blue.png";
 import { useDragDrop } from "src/hooks/useDragDrop";
 import { BtnSpace } from "src/components/PutButton/btnSpace";
 import { BtnUndo } from "src/components/PutButton/btnUndo";
-
 
 interface BlockProps {
   a: number;
@@ -15,9 +12,11 @@ interface BlockProps {
 }
 
 export function Block(props: BlockProps) {
+  const blockImagesSrc = ["/images/block-pink.png", "/images/block-blue.png"];
   const TABLES = ["tableLeftUp", "tableRightUp", "tableLeftLo", "tableRightLo"];
   const TABLE_COLUMNS = [0, 1, 2, 3, 4];
   const TABLE_ROWS = [0, 1];
+  var srcIndex: number;
 
   const el_table_place = useRef<HTMLDivElement>(null);
   const leftUpCount: number = props.a > 10 ? 10 : 0 || 0;
@@ -44,8 +43,13 @@ export function Block(props: BlockProps) {
     se.seikai1.play();
   };
 
-  const colorChange = (e:any) => {
-  console.log(e.target.src)
+  const colorChange = (e: any) => {
+    se.pi.play();
+    if (e.target.src.includes("pink")) {
+      e.target.src = "/images/block-blue.png";
+    } else {
+      e.target.src = "/images/block-pink.png";
+    }
   };
 
   //後で色を変えるイベントを追加
@@ -69,10 +73,11 @@ export function Block(props: BlockProps) {
                     onDrop={dropEnd}
                   >
                     {colIndex < putBlockCount[tableIndex * 2 + trIndex] && (tableIndex === 0 || tableIndex === 2) ? (
-                      <Image
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
                         className={`draggable-elem ${styles.suuzuBlock}`}
-                        src={blockPink}
-                        alt="blockPink"
+                        src="/images/block-pink.png"
+                        alt="block"
                         draggable="true"
                         onClick={colorChange}
                         onTouchStart={touchStart}
@@ -83,10 +88,11 @@ export function Block(props: BlockProps) {
                         onDrop={dropEnd}
                       />
                     ) : colIndex < putBlockCount[tableIndex * 2 + trIndex] && (tableIndex === 1 || tableIndex === 3) ? (
-                      <Image
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
                         draggable="true"
-                        src={blockBlue}
-                        alt="blockBlue"
+                        src="/images/block-blue.png"
+                        alt="block"
                         className={`draggable-elem ${styles.suuzuBlock}`}
                         onClick={colorChange}
                         onTouchStart={touchStart}
