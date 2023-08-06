@@ -1,7 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
+import Image from "next/image"; // Imageコンポーネントをインポート
 import React, { useEffect, useState, useRef } from "react";
 import * as se from "src/components/se";
 import styles from "src/components/Block/Block.module.css";
-
+import blockPink from "public/images/block-pink.png";
+import blockBlue from "public/images/block-blue.png";
 import { useDragDrop } from "src/hooks/useDragDrop";
 import { BtnSpace } from "src/components/PutButton/btnSpace";
 import { BtnUndo } from "src/components/PutButton/btnUndo";
@@ -14,11 +17,18 @@ interface BlockProps {
 }
 
 export function Block(props: BlockProps) {
-  const el_table = useRef<HTMLDivElement>(null);
-  const left_up = props.a > 10 ? 10 : 0 || 0;
-  const right_up = props.b > 10 ? 10 : 0 || 0;
-  const left_down = props.a > 10 ? props.a - 10 : props.a === 0 ? 0 : props.a || 10;
-  const right_down = props.b > 10 ? props.b - 10 : props.b === 0 ? 0 : props.b || 10;
+  const TABLES = ["tableLeftUp", "tableRightUp", "tableLeftLo", "tableRightLo"];
+  const TABLE_COLUMNS = [0, 1, 2, 3, 4];
+  const TABLE_ROWS = [0, 1];
+
+  const el_table_place = useRef<HTMLDivElement>(null);
+  const leftUpCount:number = props.a > 10 ? 10 : 0 || 0;
+  const rightUpCount:number = props.b > 10 ? 10 : 0 || 0;
+  const leftLoCount:number = props.a > 10 ? props.a - 10 : props.a === 0 ? 0 : props.a || 10;
+  const rightLoCount:number = props.b > 10 ? props.b - 10 : props.b === 0 ? 0 : props.b || 10;
+  //各テーブルのブロックの個数を管理
+  const blockCount:number[] = [leftUpCount, rightUpCount, leftLoCount, rightLoCount];
+  
   const [count, setCount] = useState(0);
 
   const resetTable = () => {
@@ -28,96 +38,121 @@ export function Block(props: BlockProps) {
 
   const { dragStart, dragOver, dropEnd, touchStart, touchMove, touchEnd } = useDragDrop();
 
-  useEffect(() => {
-    const handleDragStart = (e: DragEvent) => {
-      dragStart(e as unknown as React.DragEvent<HTMLDivElement>);
-    };
-    const handleDragOver = (e: DragEvent) => {
-      dragOver(e as unknown as React.DragEvent<HTMLDivElement>);
-    };
-    const handleDropEnd = (e: DragEvent) => {
-      dropEnd(e as unknown as React.DragEvent<HTMLDivElement>);
-    };
+  // useEffect(() => {
+  //   const handleDragStart = (e: DragEvent) => {
+  //     dragStart(e as unknown as React.DragEvent<HTMLDivElement>);
+  //   };
+  //   const handleDragOver = (e: DragEvent) => {
+  //     dragOver(e as unknown as React.DragEvent<HTMLDivElement>);
+  //   };
+  //   const handleDropEnd = (e: DragEvent) => {
+  //     dropEnd(e as unknown as React.DragEvent<HTMLDivElement>);
+  //   };
 
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStart(e as unknown as React.TouchEvent<HTMLDivElement>);
-    };
+  //   const handleTouchStart = (e: TouchEvent) => {
+  //     touchStart(e as unknown as React.TouchEvent<HTMLDivElement>);
+  //   };
 
-    const handleTouchMove = (e: TouchEvent) => {
-      touchMove(e as unknown as React.TouchEvent<HTMLDivElement>);
-    };
+  //   const handleTouchMove = (e: TouchEvent) => {
+  //     touchMove(e as unknown as React.TouchEvent<HTMLDivElement>);
+  //   };
 
-    const handleTouchEnd = (e: TouchEvent) => {
-      touchEnd(e as unknown as React.TouchEvent<HTMLDivElement>);
-    };
+  //   const handleTouchEnd = (e: TouchEvent) => {
+  //     touchEnd(e as unknown as React.TouchEvent<HTMLDivElement>);
+  //   };
 
-    const ele = el_table.current;
-    while (ele?.firstChild) {
-      ele.removeChild(ele.firstChild);
-    }
-    for (let i = 0; i < 4; i++) {
-      const TBL = document.createElement("table");
-      ele?.appendChild(TBL);
-      for (let j = 0; j < 2; j++) {
-        const tr = document.createElement("tr");
-        TBL.appendChild(tr);
-        for (let k = 0; k < 5; k++) {
-          const td = document.createElement("td");
-          td.className = "droppable-elem";
-          tr.appendChild(td);
+  //   const ele = el_table.current;
+  //   while (ele?.firstChild) {
+  //     ele.removeChild(ele.firstChild);
+  //   }
+  //   for (let i = 0; i < 4; i++) {
+  //     const TBL = document.createElement("table");
+  //     ele?.appendChild(TBL);
+  //     for (let j = 0; j < 2; j++) {
+  //       const tr = document.createElement("tr");
+  //       TBL.appendChild(tr);
+  //       for (let k = 0; k < 5; k++) {
+  //         const td = document.createElement("td");
+  //         td.className = "droppable-elem";
+  //         tr.appendChild(td);
 
-          if (
-            (i === 0 && j * 5 + k < left_up) ||
-            (i === 1 && j * 5 + k < right_up) ||
-            (i === 2 && j * 5 + k < left_down) ||
-            (i === 3 && j * 5 + k < right_down)
-          ) {
-            let colorIndex = i;
-            let touchStartFlag = false;
+  //         if (
+  //           (i === 0 && j * 5 + k < left_up) ||
+  //           (i === 1 && j * 5 + k < right_up) ||
+  //           (i === 2 && j * 5 + k < left_down) ||
+  //           (i === 3 && j * 5 + k < right_down)
+  //         ) {
+  //           let colorIndex = i;
+  //           let touchStartFlag = false;
 
-            const div = document.createElement("div");
-            div.className = "draggable-elem";
-            div.setAttribute("draggable", "true");
-            td.appendChild(div);
-            div.style.backgroundColor = divColor[colorIndex];
+  //           const div = document.createElement("div");
+  //           div.className = "draggable-elem";
+  //           div.setAttribute("draggable", "true");
+  //           td.appendChild(div);
+  //           div.style.backgroundColor = divColor[colorIndex];
 
-            const colorChange = () => {
-              se.pi.play();
-              colorIndex++;
-              div.style.backgroundColor = divColor[colorIndex % 2];
-            };
+  //           const colorChange = () => {
+  //             se.pi.play();
+  //             colorIndex++;
+  //             div.style.backgroundColor = divColor[colorIndex % 2];
+  //           };
 
-            // 150ミリ秒以内にタッチして指を離すとき，クリックイベントと同じ挙動とみなす。
-            const touchStartEvent = () => {
-              touchStartFlag === false ? (touchStartFlag = true) : (touchStartFlag = false);
-              setTimeout(() => {
-                touchStartFlag = false;
-              }, 150);
-            };
+  //           // 150ミリ秒以内にタッチして指を離すとき，クリックイベントと同じ挙動とみなす。
+  //           const touchStartEvent = () => {
+  //             touchStartFlag === false ? (touchStartFlag = true) : (touchStartFlag = false);
+  //             setTimeout(() => {
+  //               touchStartFlag = false;
+  //             }, 150);
+  //           };
 
-            const touchEndEvent = () => {
-              touchStartFlag === true ? colorChange() : null;
-            };
+  //           const touchEndEvent = () => {
+  //             touchStartFlag === true ? colorChange() : null;
+  //           };
 
-            div.addEventListener("click", colorChange, false);
-            div.addEventListener("touchstart", touchStartEvent, false);
-            div.addEventListener("touchend", touchEndEvent, false);
-            div.addEventListener("dragstart", handleDragStart, false);
-            div.addEventListener("dragover", handleDragOver, false);
-            div.addEventListener("drop", handleDropEnd, false);
-            div.addEventListener("touchstart", handleTouchStart, false);
-            div.addEventListener("touchmove", handleTouchMove, false);
-            div.addEventListener("touchend", handleTouchEnd, false);
-          }
-        }
-      }
-    }
-  }, [count, left_down, left_up, right_down, right_up]);
+  //           div.addEventListener("click", colorChange, false);
+  //           div.addEventListener("touchstart", touchStartEvent, false);
+  //           div.addEventListener("touchend", touchEndEvent, false);
+  //           div.addEventListener("dragstart", handleDragStart, false);
+  //           div.addEventListener("dragover", handleDragOver, false);
+  //           div.addEventListener("drop", handleDropEnd, false);
+  //           div.addEventListener("touchstart", handleTouchStart, false);
+  //           div.addEventListener("touchmove", handleTouchMove, false);
+  //           div.addEventListener("touchend", handleTouchEnd, false);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }, [count, left_down, left_up, right_down, right_up]);
+
+  // 各ブロックに異なる数だけブロックを配置したい。
+  // テーブル４つ、２行５列のブロックに、flagを挿入して、その判定によって、
+  // テーブルを配置するようにしたらどうか？
+  // うまく配置出来たら、imgに直接イベントを挿入できそうだ。
 
   return (
     <div className="flex justify-center flex-wrap items-end">
       <BtnSpace></BtnSpace>
-      <div
+      <div ref={el_table_place} className={styles.table}>
+        {TABLES.map((table, tableIndex) => (
+          <table key={tableIndex} id={TABLES[tableIndex]}>
+            {TABLE_ROWS.map((row, trIndex) => (
+              <tr key={trIndex}>
+                {TABLE_COLUMNS.map((column, colIndex) => (
+                  <td key={colIndex}>
+                    {colIndex < blockCount[tableIndex] && (tableIndex === 0 || tableIndex === 2) ? (
+                      <Image src={blockPink} className={styles.suuzuBlock} alt="blockPink" />
+                    ) : colIndex < blockCount[tableIndex] && (tableIndex === 1 || tableIndex === 3) ? (
+                      <Image src={blockBlue} className={styles.suuzuBlock} alt="blockBlue" />
+                    ) : null}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </table>
+        ))}
+      </div>
+
+      {/* <div
         ref={el_table}
         className={styles.table}
         // onTouchStart={touchStart}
@@ -126,7 +161,7 @@ export function Block(props: BlockProps) {
         onDragStart={dragStart}
         onDragOver={dragOver}
         onDrop={dropEnd}
-      ></div>
+      ></div> */}
       <BtnUndo handleEvent={resetTable}></BtnUndo>
     </div>
   );

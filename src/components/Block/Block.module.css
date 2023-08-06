@@ -20,17 +20,16 @@
   border-collapse: collapse;
 }
 
-.table div {
-  width: max(3.2vw, 32px);
-  min-width: max(3.2vw, 32px);
-  max-width: max(3.2vw, 32px);
-  height: max(3.2vw, 32px);
-  min-height: max(3.2vw, 32px);
-  max-height: max(3.2vw, 32px);
+.suuzuBlock {
+  width: max(3.8vw, 38px);
+  min-width: max(3.8vw, 38px);
+  max-width: max(3.8vw, 38px);
+  height: max(3.8vw, 38px);
+  min-height: max(3.8vw, 38px);
+  max-height: max(3.8vw, 38px);
   margin: auto;
   box-shadow: 2px 2px 2px 0 rgba(128, 128, 128, 0.8);
   border: 1px solid;
-  border-radius: 50%;
   cursor: pointer;
 }
 
