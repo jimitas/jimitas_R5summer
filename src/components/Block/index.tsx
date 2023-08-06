@@ -45,6 +45,7 @@ export function Block(props: BlockProps) {
 
   const colorChange = (e: any) => {
     se.pi.play();
+    e.target.style.transform = e.target.style.transform == "rotateY(180deg)" ? "rotateY(0deg)" : "rotateY(180deg)";
     if (e.target.src.includes("pink")) {
       e.target.src = "/images/block-blue.png";
     } else {
