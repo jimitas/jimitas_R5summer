@@ -15,7 +15,7 @@ export const useDragDrop = () => {
     e.preventDefault();
   }, []);
   
-  const dropEnd = (e: any) => {
+  const dropEnd = (e:any) => {
     se.kako.play();
     if (e.target.classList.contains("droppable-elem")) {
       dragged?.parentNode?.removeChild(dragged);
@@ -39,7 +39,7 @@ export const useDragDrop = () => {
 
   const touchEnd = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
     e.preventDefault();
-    const droppedElem = e.target as HTMLElement;
+    const droppedElem = e.target as HTMLImageElement;
     droppedElem.style.position = "";
     droppedElem.style.top = "";
     droppedElem.style.left = "";

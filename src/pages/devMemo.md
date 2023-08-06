@@ -29,3 +29,4 @@ map 関数を使って、数図ブロックを展開できるように試みる�
 Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'
 おそらく、仮想DOMで扱おうとしたときに、配列でブロックの要素を管理し、popなどのメソットで
 扱うようにしたほうがいいと考える。そしてuseEffectで、状態を管理する？
+

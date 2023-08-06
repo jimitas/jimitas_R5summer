@@ -12,17 +12,16 @@ interface BlockProps {
 }
 
 export function Block(props: BlockProps) {
-  const blockImagesSrc = ["/images/block-pink.png", "/images/block-blue.png"];
   const TABLES = ["tableLeftUp", "tableRightUp", "tableLeftLo", "tableRightLo"];
   const TABLE_COLUMNS = [0, 1, 2, 3, 4];
   const TABLE_ROWS = [0, 1];
-  var srcIndex: number;
 
   const el_table_place = useRef<HTMLDivElement>(null);
   const leftUpCount: number = props.a > 10 ? 10 : 0 || 0;
   const rightUpCount: number = props.b > 10 ? 10 : 0 || 0;
   const leftLoCount: number = props.a > 10 ? props.a - 10 : props.a === 0 ? 0 : props.a || 10;
   const rightLoCount: number = props.b > 10 ? props.b - 10 : props.b === 0 ? 0 : props.b || 10;
+
   //各テーブルのブロックの個数を管理
   const putBlockCount: number[] = [
     leftUpCount > 5 ? 5 : leftUpCount,
@@ -36,14 +35,18 @@ export function Block(props: BlockProps) {
   ];
 
   const [count, setCount] = useState(0);
-  const { dragStart, dragOver, dropEnd, touchStart, touchMove, touchEnd } = useDragDrop();
 
   const resetTable = () => {
     setCount((count) => count + 1);
     se.seikai1.play();
   };
 
-  const colorChange = (e: any) => {
+  const { dragStart, dragOver, dropEnd, touchStart, touchMove, touchEnd } = useDragDrop();
+
+  useEffect(() => {
+  }, [count, leftUpCount, rightUpCount, leftLoCount, rightLoCount]);
+
+  const flippedBlock = (e: any) => {
     se.pi.play();
     e.target.style.transform = e.target.style.transform == "rotateY(180deg)" ? "rotateY(0deg)" : "rotateY(180deg)";
     if (e.target.src.includes("pink")) {
@@ -52,10 +55,6 @@ export function Block(props: BlockProps) {
       e.target.src = "/images/block-pink.png";
     }
   };
-
-  //後で色を変えるイベントを追加
-
-  useEffect(() => {}, []);
 
   return (
     <div className="flex justify-center flex-wrap items-end">
@@ -80,7 +79,7 @@ export function Block(props: BlockProps) {
                         src="/images/block-pink.png"
                         alt="block"
                         draggable="true"
-                        onClick={colorChange}
+                        onClick={flippedBlock}
                         onTouchStart={touchStart}
                         onTouchMove={touchMove}
                         onTouchEnd={touchEnd}
@@ -95,7 +94,7 @@ export function Block(props: BlockProps) {
                         src="/images/block-blue.png"
                         alt="block"
                         className={`draggable-elem ${styles.suuzuBlock}`}
-                        onClick={colorChange}
+                        onClick={flippedBlock}
                         onTouchStart={touchStart}
                         onTouchMove={touchMove}
                         onTouchEnd={touchEnd}
