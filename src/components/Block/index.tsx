@@ -22,13 +22,22 @@ export function Block(props: BlockProps) {
   const TABLE_ROWS = [0, 1];
 
   const el_table_place = useRef<HTMLDivElement>(null);
-  const leftUpCount:number = props.a > 10 ? 10 : 0 || 0;
-  const rightUpCount:number = props.b > 10 ? 10 : 0 || 0;
-  const leftLoCount:number = props.a > 10 ? props.a - 10 : props.a === 0 ? 0 : props.a || 10;
-  const rightLoCount:number = props.b > 10 ? props.b - 10 : props.b === 0 ? 0 : props.b || 10;
+  const leftUpCount: number = props.a > 10 ? 10 : 0 || 0;
+  const rightUpCount: number = props.b > 10 ? 10 : 0 || 0;
+  const leftLoCount: number = props.a > 10 ? props.a - 10 : props.a === 0 ? 0 : props.a || 10;
+  const rightLoCount: number = props.b > 10 ? props.b - 10 : props.b === 0 ? 0 : props.b || 10;
   //各テーブルのブロックの個数を管理
-  const blockCount:number[] = [leftUpCount, rightUpCount, leftLoCount, rightLoCount];
-  
+  const putBlockCount: number[] = [
+    leftUpCount > 5 ? 5 : leftUpCount,
+    leftUpCount < 5 ? 0 : leftUpCount - 5,
+    rightUpCount > 5 ? 5 : rightUpCount,
+    rightUpCount < 5 ? 0 : rightUpCount - 5,
+    leftLoCount > 5 ? 5 : leftLoCount,
+    leftLoCount < 5 ? 0 : leftLoCount - 5,
+    rightLoCount > 5 ? 5 : rightLoCount,
+    rightLoCount < 5 ? 0 : rightLoCount - 5,
+  ];
+
   const [count, setCount] = useState(0);
 
   const resetTable = () => {
@@ -139,9 +148,9 @@ export function Block(props: BlockProps) {
               <tr key={trIndex}>
                 {TABLE_COLUMNS.map((column, colIndex) => (
                   <td key={colIndex}>
-                    {colIndex < blockCount[tableIndex] && (tableIndex === 0 || tableIndex === 2) ? (
+                    {colIndex < putBlockCount[tableIndex * 2 + trIndex] && (tableIndex === 0 || tableIndex === 2) ? (
                       <Image src={blockPink} className={styles.suuzuBlock} alt="blockPink" />
-                    ) : colIndex < blockCount[tableIndex] && (tableIndex === 1 || tableIndex === 3) ? (
+                    ) : colIndex < putBlockCount[tableIndex * 2 + trIndex] && (tableIndex === 1 || tableIndex === 3) ? (
                       <Image src={blockBlue} className={styles.suuzuBlock} alt="blockBlue" />
                     ) : null}
                   </td>
