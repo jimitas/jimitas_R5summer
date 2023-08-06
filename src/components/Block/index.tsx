@@ -39,104 +39,20 @@ export function Block(props: BlockProps) {
   ];
 
   const [count, setCount] = useState(0);
+  const { dragStart, dragOver, dropEnd, touchStart, touchMove, touchEnd } = useDragDrop();
 
   const resetTable = () => {
     setCount((count) => count + 1);
     se.seikai1.play();
   };
 
-  const { dragStart, dragOver, dropEnd, touchStart, touchMove, touchEnd } = useDragDrop();
+  const colorChange = () => {
+    se.pi.play();
+  };
 
-  // useEffect(() => {
-  //   const handleDragStart = (e: DragEvent) => {
-  //     dragStart(e as unknown as React.DragEvent<HTMLDivElement>);
-  //   };
-  //   const handleDragOver = (e: DragEvent) => {
-  //     dragOver(e as unknown as React.DragEvent<HTMLDivElement>);
-  //   };
-  //   const handleDropEnd = (e: DragEvent) => {
-  //     dropEnd(e as unknown as React.DragEvent<HTMLDivElement>);
-  //   };
+  //後で色を変えるイベントを追加
 
-  //   const handleTouchStart = (e: TouchEvent) => {
-  //     touchStart(e as unknown as React.TouchEvent<HTMLDivElement>);
-  //   };
-
-  //   const handleTouchMove = (e: TouchEvent) => {
-  //     touchMove(e as unknown as React.TouchEvent<HTMLDivElement>);
-  //   };
-
-  //   const handleTouchEnd = (e: TouchEvent) => {
-  //     touchEnd(e as unknown as React.TouchEvent<HTMLDivElement>);
-  //   };
-
-  //   const ele = el_table.current;
-  //   while (ele?.firstChild) {
-  //     ele.removeChild(ele.firstChild);
-  //   }
-  //   for (let i = 0; i < 4; i++) {
-  //     const TBL = document.createElement("table");
-  //     ele?.appendChild(TBL);
-  //     for (let j = 0; j < 2; j++) {
-  //       const tr = document.createElement("tr");
-  //       TBL.appendChild(tr);
-  //       for (let k = 0; k < 5; k++) {
-  //         const td = document.createElement("td");
-  //         td.className = "droppable-elem";
-  //         tr.appendChild(td);
-
-  //         if (
-  //           (i === 0 && j * 5 + k < left_up) ||
-  //           (i === 1 && j * 5 + k < right_up) ||
-  //           (i === 2 && j * 5 + k < left_down) ||
-  //           (i === 3 && j * 5 + k < right_down)
-  //         ) {
-  //           let colorIndex = i;
-  //           let touchStartFlag = false;
-
-  //           const div = document.createElement("div");
-  //           div.className = "draggable-elem";
-  //           div.setAttribute("draggable", "true");
-  //           td.appendChild(div);
-  //           div.style.backgroundColor = divColor[colorIndex];
-
-  //           const colorChange = () => {
-  //             se.pi.play();
-  //             colorIndex++;
-  //             div.style.backgroundColor = divColor[colorIndex % 2];
-  //           };
-
-  //           // 150ミリ秒以内にタッチして指を離すとき，クリックイベントと同じ挙動とみなす。
-  //           const touchStartEvent = () => {
-  //             touchStartFlag === false ? (touchStartFlag = true) : (touchStartFlag = false);
-  //             setTimeout(() => {
-  //               touchStartFlag = false;
-  //             }, 150);
-  //           };
-
-  //           const touchEndEvent = () => {
-  //             touchStartFlag === true ? colorChange() : null;
-  //           };
-
-  //           div.addEventListener("click", colorChange, false);
-  //           div.addEventListener("touchstart", touchStartEvent, false);
-  //           div.addEventListener("touchend", touchEndEvent, false);
-  //           div.addEventListener("dragstart", handleDragStart, false);
-  //           div.addEventListener("dragover", handleDragOver, false);
-  //           div.addEventListener("drop", handleDropEnd, false);
-  //           div.addEventListener("touchstart", handleTouchStart, false);
-  //           div.addEventListener("touchmove", handleTouchMove, false);
-  //           div.addEventListener("touchend", handleTouchEnd, false);
-  //         }
-  //       }
-  //     }
-  //   }
-  // }, [count, left_down, left_up, right_down, right_up]);
-
-  // 各ブロックに異なる数だけブロックを配置したい。
-  // テーブル４つ、２行５列のブロックに、flagを挿入して、その判定によって、
-  // テーブルを配置するようにしたらどうか？
-  // うまく配置出来たら、imgに直接イベントを挿入できそうだ。
+  useEffect(() => {}, []);
 
   return (
     <div className="flex justify-center flex-wrap items-end">
@@ -147,11 +63,41 @@ export function Block(props: BlockProps) {
             {TABLE_ROWS.map((row, trIndex) => (
               <tr key={trIndex}>
                 {TABLE_COLUMNS.map((column, colIndex) => (
-                  <td key={colIndex}>
+                  <td
+                    key={colIndex}
+                    className="droppable-elem"
+                    onDragStart={dragStart}
+                    onDragOver={dragOver}
+                    onDrop={dropEnd}
+                  >
                     {colIndex < putBlockCount[tableIndex * 2 + trIndex] && (tableIndex === 0 || tableIndex === 2) ? (
-                      <Image src={blockPink} className={styles.suuzuBlock} alt="blockPink" />
+                      <Image
+                        className={`draggable-elem ${styles.suuzuBlock}`}
+                        src={blockPink}
+                        alt="blockPink"
+                        draggable="true"
+                        onClick={colorChange}
+                        onTouchStart={touchStart}
+                        onTouchMove={touchMove}
+                        onTouchEnd={touchEnd}
+                        onDragStart={dragStart}
+                        onDragOver={dragOver}
+                        onDrop={dropEnd}
+                      />
                     ) : colIndex < putBlockCount[tableIndex * 2 + trIndex] && (tableIndex === 1 || tableIndex === 3) ? (
-                      <Image src={blockBlue} className={styles.suuzuBlock} alt="blockBlue" />
+                      <Image
+                        draggable="true"
+                        className={`draggable-elem ${styles.suuzuBlock}`}
+                        onClick={colorChange}
+                        onTouchStart={touchStart}
+                        onTouchMove={touchMove}
+                        onTouchEnd={touchEnd}
+                        onDragStart={dragStart}
+                        onDragOver={dragOver}
+                        onDrop={dropEnd}
+                        src={blockBlue}
+                        alt="blockBlue"
+                      />
                     ) : null}
                   </td>
                 ))}
@@ -160,17 +106,6 @@ export function Block(props: BlockProps) {
           </table>
         ))}
       </div>
-
-      {/* <div
-        ref={el_table}
-        className={styles.table}
-        // onTouchStart={touchStart}
-        // onTouchMove={touchMove}
-        // onTouchEnd={touchEnd}
-        onDragStart={dragStart}
-        onDragOver={dragOver}
-        onDrop={dropEnd}
-      ></div> */}
       <BtnUndo handleEvent={resetTable}></BtnUndo>
     </div>
   );
@@ -193,3 +128,37 @@ export function Block(props: BlockProps) {
 // よく考えたら、react-draggableしか勝たん？
 
 // react-draggableだとやはり、パフォーマンスが落ちるのと、カラーチェンジやCSSの当て方がうまくいかないため、やはり却下します。
+// const handleDragStart = (e: DragEvent) => {
+//   dragStart(e as unknown as React.DragEvent<HTMLDivElement>);
+// };
+// const handleDragOver = (e: DragEvent) => {
+//   dragOver(e as unknown as React.DragEvent<HTMLDivElement>);
+// };
+// const handleDropEnd = (e: DragEvent) => {
+//   dropEnd(e as unknown as React.DragEvent<HTMLDivElement>);
+// };
+
+// const handleTouchStart = (e: TouchEvent) => {
+//   touchStart(e as unknown as React.TouchEvent<HTMLDivElement>);
+// };
+
+// const handleTouchMove = (e: TouchEvent) => {
+//   touchMove(e as unknown as React.TouchEvent<HTMLDivElement>);
+// };
+
+// const handleTouchEnd = (e: TouchEvent) => {
+//   touchEnd(e as unknown as React.TouchEvent<HTMLDivElement>);
+// };
+// div.addEventListener("click", colorChange, false);
+// div.addEventListener("touchstart", touchStartEvent, false);
+// div.addEventListener("touchend", touchEndEvent, false);
+// div.addEventListener("dragstart", handleDragStart, false);
+// div.addEventListener("dragover", handleDragOver, false);
+// div.addEventListener("drop", handleDropEnd, false);
+// div.addEventListener("touchstart", handleTouchStart, false);
+// div.addEventListener("touchmove", handleTouchMove, false);
+// div.addEventListener("touchend", handleTouchEnd, false);
+// 各ブロックに異なる数だけブロックを配置したい。
+// テーブル４つ、２行５列のブロックに、flagを挿入して、その判定によって、
+// テーブルを配置するようにしたらどうか？
+// うまく配置出来たら、imgに直接イベントを挿入できそうだ。

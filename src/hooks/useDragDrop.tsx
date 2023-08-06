@@ -14,16 +14,15 @@ export const useDragDrop = () => {
   const dragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   }, []);
-
-  const dropEnd = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
+  
+  const dropEnd = (e: any) => {
     se.kako.play();
-    if (e.target instanceof HTMLTableCellElement && e.target.classList.contains("droppable-elem")) {
+    if (e.target.classList.contains("droppable-elem")) {
       dragged?.parentNode?.removeChild(dragged);
       e.target.appendChild(dragged!);
       se.kako.play();
     }
-  }, []);
+  };
 
   const touchStart = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
     e.preventDefault();
