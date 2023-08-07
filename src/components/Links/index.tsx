@@ -18,7 +18,7 @@ const ITEMS = [
     title: "２年生",
     links: [
       { href: "07tokei", title: "とけい" },
-      // { href: "./", title: "d" },
+      { href: "12ookinakazu", title: "大きな数" },
       // { href: "./", title: "d" },
       // { href: "./", title: "d" },
       // { href: "./", title: "d" },
