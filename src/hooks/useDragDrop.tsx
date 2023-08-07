@@ -4,32 +4,35 @@ import * as se from "src/components/se";
 export const useDragDrop = () => {
   let dragged: HTMLElement | null;
 
-  const dragStart = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+  const dragStart = useCallback((e: React.DragEvent<HTMLImageElement | HTMLDivElement>) => {
     if (e.target instanceof HTMLElement && e.target.draggable === true) {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       dragged = e.target;
     }
   }, []);
 
-  const dragOver = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+  const dragOver = useCallback((e: React.DragEvent<HTMLImageElement | HTMLDivElement>) => {
     e.preventDefault();
   }, []);
 
-  const dropEnd = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    se.kako.play();
-    if (e.target instanceof HTMLTableCellElement && e.target.classList.contains("droppable-elem")) {
-      dragged?.parentNode?.removeChild(dragged);
-      e.target.appendChild(dragged!);
-      se.kako.play();
+  const dropEnd = (e: any) => {
+    if (e.target.classList.contains("droppable-elem")) {
+      if (dragged) {
+        const parentElement: Node | null = dragged.parentNode;
+        if (parentElement instanceof Node) {
+          parentElement.removeChild(dragged);
+          e.target.appendChild(dragged);
+          se.kako.play();
+        }
+      }
     }
-  }, []);
+  };
 
-  const touchStart = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
+  const touchStart = useCallback((e: React.TouchEvent<HTMLImageElement | HTMLDivElement>) => {
     e.preventDefault();
   }, []);
 
-  const touchMove = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
+  const touchMove = useCallback((e: React.TouchEvent<HTMLImageElement | HTMLDivElement>) => {
     e.preventDefault();
     const draggedElem = e.target as HTMLElement;
     const touch = e.changedTouches[0];
@@ -38,9 +41,9 @@ export const useDragDrop = () => {
     draggedElem.style.left = touch.pageX - window.pageXOffset - draggedElem.offsetWidth / 2 + "px";
   }, []);
 
-  const touchEnd = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
+  const touchEnd = useCallback((e: React.TouchEvent<HTMLImageElement | HTMLDivElement>) => {
     e.preventDefault();
-    const droppedElem = e.target as HTMLElement;
+    const droppedElem = e.target as HTMLImageElement;
     droppedElem.style.position = "";
     droppedElem.style.top = "";
     droppedElem.style.left = "";

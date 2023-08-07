@@ -51,6 +51,16 @@ export function Block(props: BlockProps) {
       touchEnd(e as unknown as React.TouchEvent<HTMLDivElement>);
     };
 
+    const flippedBlock = (e: any) => {
+      se.pi.play();
+      e.target.style.transform = e.target.style.transform == "rotateY(180deg)" ? "rotateY(0deg)" : "rotateY(180deg)";
+      if (e.target.src.includes("pink")) {
+        e.target.src = "/images/block-blue.png";
+      } else {
+        e.target.src = "/images/block-pink.png";
+      }
+    };
+
     const ele = el_table.current;
     while (ele?.firstChild) {
       ele.removeChild(ele.firstChild);
@@ -72,22 +82,18 @@ export function Block(props: BlockProps) {
             (i === 2 && j * 5 + k < left_down) ||
             (i === 3 && j * 5 + k < right_down)
           ) {
-            let colorIndex = i;
-            let touchStartFlag = false;
-
-            const div = document.createElement("div");
-            div.className = "draggable-elem";
-            div.setAttribute("draggable", "true");
-            td.appendChild(div);
-            div.style.backgroundColor = divColor[colorIndex];
-
-            const colorChange = () => {
-              se.pi.play();
-              colorIndex++;
-              div.style.backgroundColor = divColor[colorIndex % 2];
-            };
+            const img = document.createElement("img");
+            if (i === 0 || i === 2) {
+              img.src = "/images/block-pink.png";
+            } else {
+              img.src = "/images/block-blue.png";
+            }
+            img.className = "draggable-elem";
+            img.setAttribute("draggable", "true");
+            td.appendChild(img);
 
             // 150ミリ秒以内にタッチして指を離すとき，クリックイベントと同じ挙動とみなす。
+            let touchStartFlag = false;
             const touchStartEvent = () => {
               touchStartFlag === false ? (touchStartFlag = true) : (touchStartFlag = false);
               setTimeout(() => {
@@ -96,18 +102,18 @@ export function Block(props: BlockProps) {
             };
 
             const touchEndEvent = () => {
-              touchStartFlag === true ? colorChange() : null;
+              touchStartFlag === true ? flippedBlock : null;
             };
 
-            div.addEventListener("click", colorChange, false);
-            div.addEventListener("touchstart", touchStartEvent, false);
-            div.addEventListener("touchend", touchEndEvent, false);
-            div.addEventListener("dragstart", handleDragStart, false);
-            div.addEventListener("dragover", handleDragOver, false);
-            div.addEventListener("drop", handleDropEnd, false);
-            div.addEventListener("touchstart", handleTouchStart, false);
-            div.addEventListener("touchmove", handleTouchMove, false);
-            div.addEventListener("touchend", handleTouchEnd, false);
+            img.addEventListener("click", flippedBlock, false);
+            img.addEventListener("touchstart", touchStartEvent, false);
+            img.addEventListener("touchend", touchEndEvent, false);
+            img.addEventListener("dragstart", handleDragStart, false);
+            img.addEventListener("dragover", handleDragOver, false);
+            img.addEventListener("drop", handleDropEnd, false);
+            img.addEventListener("touchstart", handleTouchStart, false);
+            img.addEventListener("touchmove", handleTouchMove, false);
+            img.addEventListener("touchend", handleTouchEnd, false);
           }
         }
       }
@@ -131,21 +137,3 @@ export function Block(props: BlockProps) {
     </div>
   );
 }
-
-// 現在el_tableにイベントを設置し、その子要素に伝搬する形で実現をしているが、本来の形ではない。
-// 本来は、divの子要素に直接イベントを設置するべきだが、それでもまだうまく配置できていない。
-// ブロック自体はマップ関数で配置すれば良いものだが、そこもうまく言っていない。
-// もしマップ関数を利用するならば、それぞれのどろっぱぶるに配列を用意し、そこに格納したり、
-// 配列の要素削除、追加を設定することで、ドラッグアンドドロップを実現すると考えられる。
-// ただ、数図ブロックのように、それぞれのTDに直接ドロップする形をとるならば、配列の形は
-// あまり効率的ともいえない。
-
-// まずは、カラーチェンジの要素を取り除き、ドラッグドロップができるかどうかを試したい。
-
-// ブロックを画像で表示し、回転のアニメーションをつけたい
-// タッチイベントについては直接divに配置できるようになった。
-// ドラッグイベントについては、子要素に直接イベントを付与できないが、とりあえず放置
-// 現在のスタイリングでは、例えばテーブルごとドラッグされるということはないが、ドラッグできる余白があると、勝手に動いてしまう恐れがある。
-// よく考えたら、react-draggableしか勝たん？
-
-// react-draggableだとやはり、パフォーマンスが落ちるのと、カラーチェンジやCSSの当て方がうまくいかないため、やはり却下します。
