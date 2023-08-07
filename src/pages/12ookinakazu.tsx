@@ -50,15 +50,20 @@ export default function Home() {
 
   const putNumber_1 = () => {
     // 桁数を調べる
-    const numberLength = inputValue_1.toString().length;
+    console.log(inputValue_1);
+
+    const inputValueString = inputValue_1.toString();
+    const numberLength = inputValueString.length;
     if (numberLength > 13) return;
-    const digits = inputValue_1
-      .toString()
-      .split("")
-      .map((digit) => parseInt(digit, 10));
-    for (let j = 0; j < numberLength; j++) {
-      itemLengthes[column - numberLength + j] = digits[j];
+
+    // digits配列を作成し、不足分は0で埋める
+    const digits = Array.from({ length: 13 }, (_, index) =>
+      index < numberLength ? parseInt(inputValueString[index], 10) : 0
+    );
+    for (let j = 0; j < 13; j++) {
+      itemLengthes[column - 13 + j] = digits[j];
     }
+
     createItems();
   };
 
