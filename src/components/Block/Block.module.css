@@ -32,6 +32,8 @@
   border: 1px solid;
   border-radius: 50%;
   cursor: pointer;
+  transition: transform 0.3s; /* Add a transition for the transform property */
+  transform-style: preserve-3d; /* This is required for the flip effect */
 }
 
 .container {

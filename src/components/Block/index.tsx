@@ -81,9 +81,10 @@ export function Block(props: BlockProps) {
             td.appendChild(div);
             div.style.backgroundColor = divColor[colorIndex];
 
-            const colorChange = () => {
+            const colorChange = (e:any) => {
               se.pi.play();
               colorIndex++;
+              e.target.style.transform = e.target.style.transform == "rotateY(180deg)" ? "rotateY(0deg)" : "rotateY(180deg)";
               div.style.backgroundColor = divColor[colorIndex % 2];
             };
 
@@ -96,7 +97,7 @@ export function Block(props: BlockProps) {
             };
 
             const touchEndEvent = () => {
-              touchStartFlag === true ? colorChange() : null;
+              touchStartFlag === true ? colorChange : null;
             };
 
             div.addEventListener("click", colorChange, false);
