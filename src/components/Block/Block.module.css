@@ -20,7 +20,7 @@
   border-collapse: collapse;
 }
 
-.suuzuBlock {
+.table img {
   width: max(3.6vw, 36px);
   min-width: max(3.6vw, 36px);
   max-width: max(3.6vw, 36px);
