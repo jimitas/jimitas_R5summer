@@ -18,6 +18,7 @@ const NUM: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const DIR: string[] = ["ひだり", "みぎ"];
 var answer: string;
 var flag = true;
+var imgClickflag = false;
 var order: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 export default function Nanbanme() {
   const { sendRight, sendWrong } = useCheckAnswer();
@@ -64,16 +65,19 @@ export default function Nanbanme() {
   }, [count_2]);
 
   const giveQuestion_1 = () => {
+    imgClickflag=true;
     setCount_1((count_1) => count_1 + 1);
   };
-
+  
   const giveQuestion_2 = () => {
+    imgClickflag=false;
     setCount_2((count_2) => count_2 + 1);
   };
 
   // とりあえずイベントをanyで受け取り、ターゲットIDはストリングで型をつける。
-  const checkAnswer_1 = (e:any) => {
+  const checkAnswer_1 = (e: any) => {
     if (!flag) return;
+    if (!imgClickflag) return;
     flag = false;
     const myAnswer: string = e.target.id;
     answer == myAnswer ? sendRight(el_text) : sendWrong(el_text);
