@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import * as se from "src/components/se";
-
+// test
 interface ChangeColorResult {
   colorIndex: number;
   changeColor: () => void;
 }
 
 export const useChangeColor = (): ChangeColorResult => {
-  const styleColor: string[] = ["white", "black", "white", "black", "black", "white"];
-  const styleBColor: string[] = ["#008544", "white", "black", "#C2E5F9", "#FFDC00", "#EA5404"];
+  const styleColor: string[] = ["black","white",  "white", "black", "black", "white"];
+  const styleBColor: string[] = ["white", "#008544", "black", "#C2E5F9", "#FFDC00", "#EA5404"];
   const [colorIndex, setColorIndex] = useState<number>(0);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
