@@ -6,12 +6,14 @@ const ITEMS = [
   {
     title: "１年生",
     links: [
-      { href: "01block", title: "ぶろっく" },
-      { href: "02kazoeyou", title: "かぞえよう" },
-      { href: "03nanbanme", title: "なんばんめ" },
-      { href: "04ikutu", title: "いくつといくつ" },
-      { href: "05tashizan1", title: "たしざんのしかた" },
-      { href: "06hikizan1", title: "ひきざんのしかた" },
+      { href: "101block", title: "ぶろっく" },
+      { href: "102kazoeyou", title: "かぞえよう" },
+      { href: "103nanbanme", title: "なんばんめ" },
+      { href: "104ikutu", title: "いくつといくつ" },
+      { href: "105tashizan", title: "たしざんのしかた" },
+      { href: "106hikizan", title: "たしざんのしかた" },
+      { href: "107tasuren", title: "たしざんのれんしゅう" },
+      { href: "108hikiren", title: "ひきざんのれんしゅう" },
     ],
   },
   {
